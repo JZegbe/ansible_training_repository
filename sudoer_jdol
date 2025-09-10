@@ -1,0 +1,2 @@
+#Managed by Ansible
+jdol ALL=(ALL) NOPASSWD: ALL

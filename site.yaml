@@ -7,3 +7,25 @@
     ansible.builtin.service:
       name: apache2
       state: started
+
+  - name: Add the user 'jdol' and a primary group of 'root'
+    tags: apache, ubuntu
+    ansible.builtin.user:
+      name: jdol
+      group: root
+
+  - name: Add sudoers file for user jdol
+    tags: apache, ubuntu
+    ansible.builtin.copy:
+      src: sudoer_jdol
+      dest: /etc/sudoers.d/jdol
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: Add authorized keys to the Ubuntu server 
+    tags: apache, ubuntu
+    ansible.posix.authorized_key: 
+      user: jdol
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdwpCrZd0OPXsVwR67FiSg2LX6tcO9Zs3bgLgUs6IFc jonathan@ubuntudesktop"
+
